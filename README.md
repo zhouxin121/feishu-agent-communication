@@ -2,16 +2,18 @@
 AIGC:
     Label: "1"
     ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 4fd20e68f8b80beb1e39f35a6c960ac4_e3c2b390730a11f1986d525400d9a7a1
-    ReservedCode1: OZVZvDAk5iFqwTn2QwBjqIN5U2G5SozLIPkXgXDJj+323zgvf+yy4M5uAZaKrmjaexsgt8PUxYc8v6AB9QRWU75GlKUwvbauxFTjmv0GcSdCJh7tAnORGiFGG3RWW1o3UOtxR3yTyYKkkgEhszNRd3zl6MaJm+kF3DkC4GtWhTunULESG1YOZq6yvC0=
+    ProduceID: 4fd20e68f8b80beb1e39f35a6c960ac4_363a9cbe731011f1986d525400d9a7a1
+    ReservedCode1: 4X0km/Pt+b8a/AypEivjTD+MDTEAeXcJBiu2XtNm18UITP4o0BKB/hINeWwCKK80ILCASW8fefShUPJuVR6BmLSDLYF2kVBRsaVoy7PWv1h0hUtsbEwA9XLw+Gujzk9tXr55AuT1xJu2F/qgi7lTandhr4JA1LeZg9UTuTIngKF5QJ3Dhb7/8IpEOMg=
     ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 4fd20e68f8b80beb1e39f35a6c960ac4_e3c2b390730a11f1986d525400d9a7a1
-    ReservedCode2: OZVZvDAk5iFqwTn2QwBjqIN5U2G5SozLIPkXgXDJj+323zgvf+yy4M5uAZaKrmjaexsgt8PUxYc8v6AB9QRWU75GlKUwvbauxFTjmv0GcSdCJh7tAnORGiFGG3RWW1o3UOtxR3yTyYKkkgEhszNRd3zl6MaJm+kF3DkC4GtWhTunULESG1YOZq6yvC0=
+    PropagateID: 4fd20e68f8b80beb1e39f35a6c960ac4_363a9cbe731011f1986d525400d9a7a1
+    ReservedCode2: 4X0km/Pt+b8a/AypEivjTD+MDTEAeXcJBiu2XtNm18UITP4o0BKB/hINeWwCKK80ILCASW8fefShUPJuVR6BmLSDLYF2kVBRsaVoy7PWv1h0hUtsbEwA9XLw+Gujzk9tXr55AuT1xJu2F/qgi7lTandhr4JA1LeZg9UTuTIngKF5QJ3Dhb7/8IpEOMg=
 ---
 
-
-
 # 飞书多Agent群聊通信
+
+![version](https://img.shields.io/badge/version-1.0.0-blue)
+
+让多个 AI Agent 在飞书群里自动协作，你只需发消息，它们自动认领、处理、交接。
 
 ## 解决什么问题
 
@@ -47,37 +49,22 @@ AIGC:
 
 ## 配置中常见问题
 
-以下是实测过程中踩过的坑。你的 Agent 可以基于这些方向自行排查：
+1. **配置文件路径搞混** — OpenClaw 标准版和 AutoClaw 使用不同的配置文件路径
+2. **消息收不到** — 飞书后台「通过长连接接收事件」开关默认关闭
+3. **群 ID 获取不到** — 飞书网页版不显示群 ID，需在手机飞书 App 群设置中查看
+4. **机器人读不到群消息** — 缺少 `im:message:read_as_bot` 权限
+5. **Token 过期** — 飞书 Tenant Token 有效期 2 小时，需 Gateway 支持自动刷新
+6. **多 Agent 区分不生效** — 路由按群 ID 匹配，需通过消息前缀或关键词条件区分
+7. **Gateway 端口冲突** — AutoClaw 可能覆写端口，Gateway 内部自动适配
+8. **回复显示为代码块** — 消息类型需用 `text` 而非 `post` 格式
 
-### 1. 配置文件路径搞混
-- 方向：OpenClaw 标准版和 AutoClaw 使用不同的配置文件路径，改了不对的位置重启不会生效。
+## 如何获取
 
-### 2. 消息收不到
-- 方向：飞书开放平台后台有一个「通过长连接接收事件」开关，默认关闭。
+**SKILL.md** 在本仓库免费公开，提供完整思路、效果、出处和致谢。
 
-### 3. 群 ID 获取不到
-- 方向：飞书网页版后台不显示群 ID，需在手机飞书 App → 群设置中查看（`oc_` 开头）。
+完整部署文档（含配置模板 + 分步操作 + 8 条踩坑详解）通过链动小铺获取：
 
-### 4. 机器人读不到群消息
-- 方向：缺少 `im:message:read_as_bot` 权限，需在飞书后台开通后重新发布应用。
-
-### 5. Token 过期导致中断
-- 方向：飞书 Tenant Token 有效期 2 小时，需确保 Gateway 支持自动刷新。
-
-### 6. 多 Agent 按 @ 区分不生效
-- 方向：路由是按群 ID 匹配而非 @ 语义，需通过消息前缀或关键词条件来区分。
-
-### 7. Gateway 端口与实际监听不一致
-- 方向：AutoClaw 可能覆写端口，Gateway 内部自动适配，一般不需手动处理。
-
-### 8. 回复在群里显示为代码块
-- 方向：消息类型需用 `text` 而非 `post` 格式发送群消息。
-
-## 完整部署指南
-
-以上问题在部署文档中有完整的配置模板、分步操作和详细解决方案。如果你希望你的 Agent 直接照着配置完成部署，可获取部署文档：
-
-部署文档获取：https://pay.ldxp.cn/item/t7ktxb
+> https://pay.ldxp.cn/item/t7ktxb
 
 ## 依赖与致谢
 
@@ -86,4 +73,6 @@ AIGC:
 | OpenClaw | Agent Gateway 核心 | github.com/openclaw/openclaw |
 | AutoClaw | 社区发行版，方案验证 | 社区项目 |
 | 飞书开放平台 | Bot API + WebSocket | open.feishu.cn |
+
+*内容由AI生成，仅供参考*
 *（内容由AI生成，仅供参考）*
