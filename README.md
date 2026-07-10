@@ -1,78 +1,64 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 4fd20e68f8b80beb1e39f35a6c960ac4_363a9cbe731011f1986d525400d9a7a1
-    ReservedCode1: 4X0km/Pt+b8a/AypEivjTD+MDTEAeXcJBiu2XtNm18UITP4o0BKB/hINeWwCKK80ILCASW8fefShUPJuVR6BmLSDLYF2kVBRsaVoy7PWv1h0hUtsbEwA9XLw+Gujzk9tXr55AuT1xJu2F/qgi7lTandhr4JA1LeZg9UTuTIngKF5QJ3Dhb7/8IpEOMg=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 4fd20e68f8b80beb1e39f35a6c960ac4_363a9cbe731011f1986d525400d9a7a1
-    ReservedCode2: 4X0km/Pt+b8a/AypEivjTD+MDTEAeXcJBiu2XtNm18UITP4o0BKB/hINeWwCKK80ILCASW8fefShUPJuVR6BmLSDLYF2kVBRsaVoy7PWv1h0hUtsbEwA9XLw+Gujzk9tXr55AuT1xJu2F/qgi7lTandhr4JA1LeZg9UTuTIngKF5QJ3Dhb7/8IpEOMg=
----
-
 # 飞书多Agent群聊通信
-
-![version](https://img.shields.io/badge/version-1.0.0-blue)
-
-让多个 AI Agent 在飞书群里自动协作，你只需发消息，它们自动认领、处理、交接。
 
 ## 解决什么问题
 
-当你同时使用多个 AI Agent（比如一个写代码、一个查资料、一个管项目），它们各自孤立运行，互不知道对方在干什么。每次想让一个 Agent 处理完通知另一个继续，只能手动搬运消息。
+多个 AI Agent 各自孤立运行，每次想传消息只能手动搬运。本方案：建一个飞书群，多个 Agent 拉进去，群里发消息自动认领处理，处理完自动 @ 下一个。
 
-这个 Skill 让你：建一个飞书群，把多个 Agent 拉进去。群里发消息，对应 Agent 自动认领处理，处理完自动 @ 下一个继续。你从"搬运工"变回"老板"。
+## 适用场景
 
-## 核心原理
+- 主持者 Agent 接收用户指令，@执行者 Agent 派发任务
+- 多 Agent 群内协作，无需手动切换或复制粘贴
+- 一人管理多个 Bot，各司其职互不干扰
+
+## 文件结构
 
 ```
-飞书群发消息 → 飞书 WebSocket 推送 → Gateway 接收
-→ 按路由规则匹配 → 分发到对应 Agent
-→ Agent 处理 → 回复到群
+feishu-multi-agent-communication/
+├── SKILL.md                      # Agent 执行指令（Step 0-5）
+├── README.md                     # 本文件（人类阅读）
+├── references/
+│   └── 配置模板.yaml              # 填写你的 Bot 信息
+└── scripts/
+    └── validate_config.py         # 配置校验脚本
 ```
 
-一句话：飞书群当消息中台，Gateway 根据路由规则自动把消息分给对应 Agent。
+## 快速开始
 
-## 实测效果
-
-- **3 Agent 协作**：任务 → 5 秒拆解 → 并行处理 → 60 秒汇总回复
-- **消息延迟**：< 1 秒
-- **并发能力**：3 Agent 同时在线，无消息丢失
-- **成本**：飞书免费版 100 万次/月 API 额度，个人使用绰绰有余
-
-## 你需要准备
-
-| 项目 | 说明 | 费用 |
-|------|------|------|
-| 飞书账号 | 个人免费注册 | 免费 |
-| 飞书开放平台 | 创建机器人用 | 免费 |
-| OpenClaw 或 AutoClaw | Agent 运行平台 | 免费开源 |
-| 部署文档 | 含配置模板 + 分步操作 + 8 条踩坑详解 | 0.99元/年 |
+1. 飞书开放平台创建应用，开通机器人 + 事件订阅 + im 权限 → 发布版本
+2. 填写 `references/配置模板.yaml` → 运行 `python scripts/validate_config.py`
+3. 群内发消息测试：`@执行者 通信测试，请回复"收到"`
+4. 跑通后按 SKILL.md 的 Step 4-5 设定角色和任务派发
 
 ## 配置中常见问题
 
-1. **配置文件路径搞混** — OpenClaw 标准版和 AutoClaw 使用不同的配置文件路径
-2. **消息收不到** — 飞书后台「通过长连接接收事件」开关默认关闭
-3. **群 ID 获取不到** — 飞书网页版不显示群 ID，需在手机飞书 App 群设置中查看
-4. **机器人读不到群消息** — 缺少 `im:message:read_as_bot` 权限
-5. **Token 过期** — 飞书 Tenant Token 有效期 2 小时，需 Gateway 支持自动刷新
-6. **多 Agent 区分不生效** — 路由按群 ID 匹配，需通过消息前缀或关键词条件区分
-7. **Gateway 端口冲突** — AutoClaw 可能覆写端口，Gateway 内部自动适配
-8. **回复显示为代码块** — 消息类型需用 `text` 而非 `post` 格式
+| # | 现象 | 控制台路径 | 排查方向 |
+|---|------|-----------|----------|
+| 1 | 消息发了 Agent 没反应 | 飞书后台 → 应用 → 事件与回调 → 事件订阅 | 开启"通过长连接接收事件" → 发布版本 |
+| 2 | 机器人读不到群消息 | 飞书后台 → 应用 → 权限管理 | 确认 `im:message:read_as_bot` 已添加 → 发布版本 |
+| 3 | 发消息返回 403 | —— | 每个 Bot 对同一用户有不同 open_id，不能混用 |
+| 4 | 群 ID 获取不到 | 手机飞书 App → 群设置 | 飞书网页版后台不显示，需手机查看（oc_ 开头） |
+| 5 | @别人对方收不到 | —— | @标签 user_id 必须填 open_id（ou_ 开头），不能填 cli_ |
+| 6 | Token 过期中断 | —— | 确保 Gateway 配置了 Tenant Token 自动刷新 |
 
-## 如何获取
+## DO/DON'T
 
-**SKILL.md** 在本仓库免费公开，提供完整思路、效果、出处和致谢。
+| DO ✅ | DON'T ❌ |
+|------|----------|
+| 每条发给对方的消息开头加 @标签 | 用 cli_ 会话ID 替代 open_id |
+| 权限修改后发布应用版本 | 用 post/interactive 格式（必须 text） |
+| 运行 validate_config.py 后再测试 | 意译/修改 @标签中的 Bot 名字 |
+| 执行者不直接响应用户 | 权限修改不发布就测试 |
 
-完整部署文档（含配置模板 + 分步操作 + 8 条踩坑详解）通过链动小铺获取：
+完整部署文档可以在10分钟内完成部署。
 
-> https://pay.ldxp.cn/item/t7ktxb
+## 参考与感谢
 
-## 依赖与致谢
-
-| 项目 | 用途 | 链接 |
-|------|------|------|
-| OpenClaw | Agent Gateway 核心 | github.com/openclaw/openclaw |
-| AutoClaw | 社区发行版，方案验证 | 社区项目 |
-| 飞书开放平台 | Bot API + WebSocket | open.feishu.cn |
-
-*内容由AI生成，仅供参考*
-*（内容由AI生成，仅供参考）*
+- 飞书开放平台文档: https://open.feishu.cn/
+- 飞书事件订阅指南: https://open.feishu.cn/document/server-docs/event-subscription-guide/overview
+- OpenClaw: https://github.com/openclaw/openclaw
+- 同类 Skill: https://github.com/relunctance/feishu-multi-agent-relay
+- 同类 Skill: https://clawhub.ai/glassmarbles/feishu-agent-relay
+- 社区实践: https://devpress.csdn.net/v1/article/detail/159314664
+- 架构参考: https://vaitk.com/blog/multi-agent-system-architecture-guide
+- 感谢 ClawHub Weather: https://clawhub.ai/steipete/weather
+- 感谢 ClawHub GitHub: https://clawhub.ai/steipete/github

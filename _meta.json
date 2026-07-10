@@ -1,14 +1,14 @@
 {
   "name": "feishu-multi-agent-communication",
-  "version": "1.0.0",
-  "date": "2026-06-29",
+  "version": "1.1.0",
+  "date": "2026-07-10",
   "category": "communication",
   "platforms": ["feishu", "openclaw", "autoclaw"],
-  "tested_date": "2026-06-26",
+  "tested_date": "2026-07-10",
   "pricing": {
     "mode": "freemium",
-    "free": "SKILL.md 公开，含完整思路/效果/8条踩坑方向/致谢",
-    "paid": "部署文档（配置模板+分步操作+8条踩坑详解）",
+    "free": "SKILL.md 公开，含完整 Step 0-5 + 3条防呆铁律 + 6条踩坑方向 + DO/DON'T + 配置校验脚本",
+    "paid": "完整部署指南（精确参数+一键替换+防呆指令+System Prompt包+11条踩坑详解）",
     "payment_link": "https://pay.ldxp.cn/item/t7ktxb",
     "price": "0.99元/年"
   },
