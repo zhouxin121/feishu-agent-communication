@@ -114,6 +114,6 @@ python scripts/validate_config.py
 - 同类 Skill: https://clawhub.ai/glassmarbles/feishu-agent-relay
 - 社区实践: https://devpress.csdn.net/v1/article/detail/159314664
 - 架构参考: https://vaitk.com/blog/multi-agent-system-architecture-guide
-- 完整部署指南（含精确参数+一键替换+防呆指令）: https://pay.ldxp.cn/item/t7ktxb
+- 基础版能跑通。如需一键替换参数模板 + 防呆指令，升级完整版: https://pay.ldxp.cn/item/t7ktxb
 - 感谢 ClawHub Weather: https://clawhub.ai/steipete/weather
 - 感谢 ClawHub GitHub: https://clawhub.ai/steipete/github
