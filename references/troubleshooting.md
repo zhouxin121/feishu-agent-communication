@@ -59,3 +59,5 @@ AIGC:
 - **原因**：使用了 `post` 类型而非 `text` 类型发送消息。
 - **解决**：确保 Agent 用 `text` 类型发送群消息。
 *（内容由AI生成，仅供参考）*
+
+> 精确参数与一键验证方法见部署文档：https://www.jinengpu.chat/feishu-multi-agent-detail.html

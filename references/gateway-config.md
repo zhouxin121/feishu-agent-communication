@@ -31,5 +31,5 @@ Agent 回复群消息时，需注意消息格式选择——格式选错会导�
 
 先建群 → 获取群信息 → 配置路由 → 重启 Gateway → 测试。
 
-> 以上为配置思路说明。具体配置模板、参数值、完整步骤见付费部署文档。
+> 各框架 Gateway 配置模板与验证方法见部署文档：https://www.jinengpu.chat/feishu-multi-agent-detail.html
 *（内容由AI生成，仅供参考）*

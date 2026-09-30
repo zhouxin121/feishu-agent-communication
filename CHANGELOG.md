@@ -1,6 +1,14 @@
----
-
 # Changelog
+
+## v0.1.3 (2026-09-30)
+
+- 核心原理重构为双路线结构（路线A 直连互@ / 路线B Gateway 路由），去除单路线断言
+- 移除旧的转化说明页（转化内容移至落地页）
+- 获取链接统一为官方 jinengpu 渠道，旧第三方铺子链接废弃
+- 兼容清单统一为 8 框架（OpenClaw/AutoClaw/WorkBuddy/CherryStudio/DeepSeek Harness/Pi/Claude Code/Codex）
+- 修正失真的 API 额度断言，改为准确的频控分级描述
+- 版本号统一 0.1.x 单轨；README 与 SKILL.md 去重（README 收敛为摘要页）
+- 新增 128 字符摘要与口语搜索关键词（Agent互相@ / agent to agent chat / bot relay 等）
 
 ## v0.1.2 (2026-09-30)
 
@@ -20,12 +28,3 @@ AIGC:
     ContentPropagator: 001191440300708461136T1XGW3
     PropagateID: 4fd20e68f8b80beb1e39f35a6c960ac4_37fda03b731011f1b2f55254006c9bbf
     ReservedCode2: ptKI4uTV4VXl3W7ZV24wEWzlu6NeoRFLEAdhdH5XdKM/QVPeAxk2slWRDGpKgUul9mfg0Mb58sAk4Cb1j1aDEw1+zyn9l9lXrW33B8eyDrRcNbUPvqesY3wL2gIKQkzN3QNR2AxdPUNZCxnqb+MrmBYZwQC4NSalpGHP9yoGkWr8J8yDiI5of0v36lw=
----
-
-## [1.0.0] - 2026-06-29
-- 初始版本
-- 飞书多Agent群聊通信 Skill 完整包
-- 8条踩坑经验记录
-- 飞书机器人配置指南
-- Gateway 配置说明
-*（内容由AI生成，仅供参考）*
