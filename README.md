@@ -10,6 +10,8 @@ AIGC:
 ---
 
 # 飞书多Agent群聊通信
+> 📦 **一键安装**：[ClawHub 页面](https://clawhub.ai/zhouxin121/skills/feishu-agent-communication) · OpenClaw 用户搜索 `feishu-agent-communication` 直接装
+
 
 ## 安装
 
