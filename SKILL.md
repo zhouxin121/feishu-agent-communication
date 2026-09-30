@@ -11,7 +11,7 @@ AIGC:
 
 
 
-# 飞书多Agent群聊通信 v0.1.1
+# 飞书多Agent群聊通信 v0.1.2
 
 ## 解决什么问题
 
@@ -100,6 +100,7 @@ AIGC:
 | OpenClaw | Agent Gateway 核心 | github.com/openclaw/openclaw |
 | AutoClaw | 社区发行版，方案验证 | 社区项目 |
 | 飞书开放平台 | Bot API + WebSocket | open.feishu.cn |
+| WorkBuddy | Agent 运行平台（兼容） | 社区发行版 |
 
 ## 关键词
 

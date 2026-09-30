@@ -2,6 +2,10 @@
 
 # Changelog
 
+## v0.1.2 (2026-09-30)
+
+- SKILL.md 基础环境表补 WorkBuddy 兼容声明（三 skill 话术一致性）
+
 ## v0.1.1 (2026-09-29)
 
 - Add MIT LICENSE to repository root
