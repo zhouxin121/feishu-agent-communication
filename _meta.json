@@ -1,6 +1,6 @@
 {
   "name": "feishu-multi-agent-communication",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "date": "2026-09-30",
   "category": "communication",
   "platforms": [
@@ -19,7 +19,7 @@
     "mode": "freemium",
     "free": "SKILL.md 公开：理念 + 双路线原理 + 8条踩坑方向 + 排障指引",
     "paid": "部署文档（8卡点配置模板 + 分步操作每步期望日志 + 一键验证）",
-    "payment_link": "https://wzyp.cn/item/t7ktxb",
+    "payment_link": "https://www.jinengpu.chat/feishu-multi-agent-detail.html",
     "detail_page": "https://www.jinengpu.chat/feishu-multi-agent-detail.html",
     "price": "0.99元（一次买断）"
   },

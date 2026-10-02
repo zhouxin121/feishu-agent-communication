@@ -9,7 +9,7 @@ AIGC:
     ReservedCode2: ERYOqKJMdOzLT+yRrB+XvLH5+Qa4UdA5f+9Lzc18UOztcinIrfaTbgzPq4jPAu0agvfG7FaQ41aMCDxYaif44E3xxWKspMZMnIO5Mwvjxhj34q6Ctu8asBNBTiY0331VOQ6Thvh4DPBFFY6mvAM6apKEg1UAjyWee+Axl6faH9OAsaDyHMsnHE6nvEs=
 ---
 
-# 飞书多Agent群聊通信 v0.1.3
+# 飞书多Agent群聊通信 v0.1.4
 
 多个AI Agent各干各的，消息靠你手动搬？建一个飞书群把它们拉进来，自动认领、自动交接。直连互@与Gateway路由双路线，兼容OpenClaw/AutoClaw/CherryStudio等8个框架，含8条实测踩坑。
 
